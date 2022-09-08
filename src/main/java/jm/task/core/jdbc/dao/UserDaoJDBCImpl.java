@@ -25,8 +25,8 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void createUsersTable() {
-        try (Connection connection = Util.getConnection();
-             Statement statement = Util.getStatement(connection)) {
+        try (Connection connection = Util.getConnection()) {
+            Statement statement = Util.getStatement(connection);
             statement.executeUpdate(CREATE_USERS_TABLE);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -34,9 +34,8 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() {
-        try (Connection connection = Util.getConnection();
-             Statement statement = Util.getStatement(connection)) {
-
+        try (Connection connection = Util.getConnection()) {
+            Statement statement = Util.getStatement(connection);
             statement.executeUpdate(DROP_USERS_TABLE);
             System.out.println("Таблица удалена!");
 
@@ -46,8 +45,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        try (Connection connection = Util.getConnection();
-             Statement statement = Util.getStatement(connection)) {
+        try (Connection connection = Util.getConnection()) {
             PreparedStatement preparedStatement =
                     connection.prepareStatement(SET_VALUES);
 
@@ -62,8 +60,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
-        try (Connection connection = Util.getConnection();
-             Statement statement = Util.getStatement(connection)) {
+        try (Connection connection = Util.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(REMOVE_USER);
 
             preparedStatement.setLong(1, id);
@@ -77,8 +74,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
-        try (Connection connection = Util.getConnection();
-             Statement statement = Util.getStatement(connection)) {
+        try (Connection connection = Util.getConnection()) {
+            Statement statement = Util.getStatement(connection);
             ResultSet resultSet = statement.executeQuery(SELECT_FROM);
             while (resultSet.next()) {
                 User user = new User();
@@ -95,8 +92,8 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void cleanUsersTable() {
-        try (Connection connection = Util.getConnection();
-             Statement statement = Util.getStatement(connection)) {
+        try (Connection connection = Util.getConnection()) {
+            Statement statement = Util.getStatement(connection);
             statement.executeUpdate(CLEAN_USER_TABLE);
             System.out.println("Все пользователи удалены!");
         } catch (SQLException e) {
